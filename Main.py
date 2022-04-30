@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import math
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 #Read data & Split it
 df = pd.read_csv("data/train.csv")
@@ -19,6 +20,13 @@ y_df = pd.DataFrame(df, columns = ['count'])
 x_train, x_valid, y_train, y_valid = train_test_split(x_df, y_df, train_size=0.6, random_state=0)
 x_valid, x_test, y_valid, y_test = train_test_split(x_valid, y_valid, train_size=0.5, random_state=0)
 #print(x_train, x_valid, x_test, y_train, y_valid, y_test)
+
+#Standardization
+sc = StandardScaler()
+sc.fit(x_train)
+x_train_std = sc.transform(x_train)
+x_valid_std = sc.transform(x_valid)
+x_test_std = sc.transform(x_test)
 
 ##KNN
 from sklearn.neighbors import KNeighborsRegressor
@@ -45,18 +53,19 @@ kng_test_score=kng.score(x_test,y_test)
 
 print('test data score:{:.2f}'.format(kng_test_score))
 '''
+"""
 error_rate = []
 for i in range(1,60):
     
     knn = KNeighborsClassifier(n_neighbors=i)
-    knn.fit(x_train,y_train)
-    pred_i = knn.predict(x_valid)
-    error_rate.append(np.mean(pred_i != y_valid.T))
-    '''
-    prediction=knn.predict(x_test)
-    knn_test_score=knn.score(x_test,y_test)
+    knn.fit(x_train_std, y_train.values)
+    pred_i = knn.predict(x_valid_std)
+    error_rate.append(np.mean(pred_i != y_valid.T.values))
+    
+    prediction=knn.predict(x_test_std)
+    knn_test_score=knn.score(x_test_std, y_test.values)
     print('test data score:{:.2f}'.format(knn_test_score))
-    '''
+    
 
 #將k=1~60的錯誤率製圖畫出
 plt.figure(figsize=(10,6))
@@ -66,6 +75,16 @@ plt.title('Error Rate vs. K Value')
 plt.xlabel('K')
 plt.ylabel('Error Rate')
 
-prediction=knn.predict(x_test)
-knn_test_score=knn.score(x_test,y_test)
+prediction=knn.predict(x_test_std)
+knn_test_score=knn.score(x_test_std, y_test.values)
 print('test data score:{:.2f}'.format(knn_test_score))
+"""
+
+kng=KNeighborsRegressor(n_neighbors=1)
+
+kng.fit(x_train_std,y_train.values)
+prediction=kng.predict(x_test_std)
+
+kng_test_score=kng.score(x_test_std,y_test.values)
+
+print('test data score:{:.2f}'.format(kng_test_score))
