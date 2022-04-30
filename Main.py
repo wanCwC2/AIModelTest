@@ -88,3 +88,9 @@ prediction=kng.predict(x_valid_std)
 kng_test_score=kng.score(x_test_std,y_test.values)
 
 print('test data score:{:.2f}'.format(kng_test_score))
+
+# Decision model
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier()
+model.fit(x_train_std, y_train.values)
+print(model.score(x_test_std, y_test.values))
