@@ -83,7 +83,7 @@ print('test data score:{:.2f}'.format(knn_test_score))
 kng=KNeighborsRegressor(n_neighbors=1)
 
 kng.fit(x_train_std,y_train.values)
-prediction=kng.predict(x_test_std)
+prediction=kng.predict(x_valid_std)
 
 kng_test_score=kng.score(x_test_std,y_test.values)
 
