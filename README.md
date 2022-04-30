@@ -10,4 +10,8 @@
 
 # Decision model
 ### 參考資料
-[資料視覺化之 Decision tree (決策樹)範例與 Machine Learning (機器學習) 概念簡單教學(入門)](https://tree.rocks/decision-tree-graphviz-contour-with-pandas-gen-train-test-dataset-for-beginner-9137b7c8416a)
+[資料視覺化之 Decision tree (決策樹)範例與 Machine Learning (機器學習) 概念簡單教學(入門)](https://tree.rocks/decision-tree-graphviz-contour-with-pandas-gen-train-test-dataset-for-beginner-9137b7c8416a) <br>
+
+# Random forest
+### 參考資料
+[[Python實作] 隨機森林模型 Random Forest](https://pyecontech.com/2019/11/03/python_random_forest/) <br>
