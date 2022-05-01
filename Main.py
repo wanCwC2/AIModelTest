@@ -1,10 +1,11 @@
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import math
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.model_selection import GridSearchCV
+
+#from KNN import KNN
 
 #Read data & Split it
 df = pd.read_csv("data/train.csv")
@@ -28,80 +29,53 @@ x_train_std = sc.transform(x_train)
 x_valid_std = sc.transform(x_valid)
 x_test_std = sc.transform(x_test)
 
-##KNN
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import GridSearchCV
-'''
+#KNN
+# Method 1: Use GridSearchCV to find the best value of k
 # 設定需要搜尋的K值，'n_neighbors'是sklearn中KNN的引數
-parameters={'n_neighbors':for i in range(1,10)}
-knn=KNeighborsClassifier()#注意：這裡不用指定引數
-
+parameters={'n_neighbors':[1,3,5,7,9,11,13]}
+knn=KNeighborsRegressor() #注意：這裡不用指定引數
 # 通過GridSearchCV來搜尋最好的K值。這個模組的內部其實就是對每一個K值進行評估
-clf=GridSearchCV(knn,parameters,cv=5)  #5折
+clf=GridSearchCV(knn,parameters,cv=5) #5折
 clf.fit(x_train,y_train)
-
 # 輸出最好的引數以及對應的準確率
-print("最終最佳準確率：%.2f"%clf.best_score_,"最終的最佳K值",clf.best_params_)
+print("The best rate is ：%.5f"%clf.best_score_,"The best value of k is",clf.best_params_)
 
-kng=KNeighborsRegressor(n_neighbors=1)
-
-kng.fit(x_train,y_train)
-prediction=knn.predict(x_test)
-
-kng_test_score=kng.score(x_test,y_test)
-
-print('test data score:{:.2f}'.format(kng_test_score))
-'''
-"""
-error_rate = []
-for i in range(1,60):
-    
-    knn = KNeighborsClassifier(n_neighbors=i)
+#Method 2: Use for loop and knn.score to find the best value of k
+correctRate = []
+for i in range(1,60,2):
+    knn = KNeighborsRegressor(n_neighbors=i)
     knn.fit(x_train_std, y_train.values)
-    pred_i = knn.predict(x_valid_std)
-    error_rate.append(np.mean(pred_i != y_valid.T.values))
+    correctRate.append(knn.score(x_valid_std, y_valid.values))
     
-    prediction=knn.predict(x_test_std)
-    knn_test_score=knn.score(x_test_std, y_test.values)
-    print('test data score:{:.2f}'.format(knn_test_score))
-    
-
-#將k=1~60的錯誤率製圖畫出
+# Draw the different correct rate in all k
 plt.figure(figsize=(10,6))
-plt.plot(range(1,60),error_rate,color='blue', linestyle='dashed', marker='o',
+plt.plot(range(1,60,2),correctRate,color='blue', linestyle='dashed', marker='o',
          markerfacecolor='red', markersize=10)
-plt.title('Error Rate vs. K Value')
+plt.title('Correct Rate vs. K Value')
 plt.xlabel('K')
-plt.ylabel('Error Rate')
+plt.ylabel('Correct Rate')
 
-prediction=knn.predict(x_test_std)
-knn_test_score=knn.score(x_test_std, y_test.values)
-print('test data score:{:.2f}'.format(knn_test_score))
+# Predict using KNN
+knn_test_score=knn.score(x_test_std,y_test.values)
+print('Correct rate using KNN: {:.5f}'.format(knn_test_score))
+
 """
-
-kng=KNeighborsRegressor(n_neighbors=1)
-
-kng.fit(x_train_std,y_train.values)
-prediction=kng.predict(x_valid_std)
-
-kng_test_score=kng.score(x_test_std,y_test.values)
-
-print('test data score:{:.2f}'.format(kng_test_score))
+knn = KNN(x_train_std, x_valid_std, x_test_std, y_train.values, y_valid.values, y_test.values)
+knn.findK()
+knn.draw()
+knn.predict(7)
+"""
 
 # Decision model
 from sklearn.tree import DecisionTreeRegressor
 model = DecisionTreeRegressor()
 for i in range (1,10):
     model.fit(x_train_std, y_train.values)
-    model.predict(x_valid_std)
-    
-    
+    model.predict(x_valid_std)  
 print(model.score(x_test_std, y_test.values))
 
 # Random Forest
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.datasets import make_classification
 rfc = RandomForestRegressor(n_estimators=100,n_jobs = -1,random_state =50, min_samples_leaf = 10)
 rfc.fit(x_train_std, y_train.values)
 y_predict=rfc.predict(x_test)

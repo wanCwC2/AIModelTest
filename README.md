@@ -9,7 +9,9 @@ Downing the *.csv, and put them in data folder.
 I used two method: `GridSearchCV` and `numpy.mean` to find k. GridSearchCV was successful, but numpy.mean wasn't.
 Then, I though why not use `knn.score` to find the best corret rate.
 Ha! Finally, two method found the same k. <br>
-I found that the Method 1 only using train data, not using validation data. So, using Method 2 will be better. <br>
+I found that the Method 1 only using train data, not using validation data. So, using Method 2 will be better. But, these two are almost same. <br>
+在KNN中，我想要用物件導向。但是一直跳出`unhashable type: 'numpy.ndarray'`的錯誤，可以參考 [Python初學者之TypeError: unhashable type: 'list'問題分析](https://www.796t.com/content/1548405036.html)
+大意上就是list或array不存在hash，無法用hash做為索引，必須要用`tuple()`，才有可能做物件導向。需要再研究吧，目前先用`Main.py`將就一下。
 ### References
 [機器學習 第5篇：knn迴歸 - iT人](https://iter01.com/549663.html) <br>
 [Python機器學習筆記(五)：使用Scikit-Learn進行K-Nearest演算法](https://yanwei-liu.medium.com/python機器學習筆記-五-使用scikit-learn進行k-nearest演算法-1191ea94ecaf) <br>
