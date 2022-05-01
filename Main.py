@@ -100,9 +100,9 @@ for i in range (1,10):
 print(model.score(x_test_std, y_test.values))
 
 # Random Forest
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.datasets import make_classification
-rfc = RandomForestClassifier(n_estimators=100,n_jobs = -1,random_state =50, min_samples_leaf = 10)
+rfc = RandomForestRegressor(n_estimators=100,n_jobs = -1,random_state =50, min_samples_leaf = 10)
 rfc.fit(x_train_std, y_train.values)
 y_predict=rfc.predict(x_test)
 print(rfc.score(x_test_std, y_test.values))
