@@ -14,6 +14,8 @@ I found that the Method 1 only using train data, not using validation data. So, 
 大意上就是list或array不存在hash，無法用hash做為索引，必須要用`tuple()`，才有可能做物件導向。需要再研究吧，目前先用`Main.py`將就一下。
 ## 找到最佳k值
 <img src="./image/findK.png" style="zoom:70%" />
+<br>
+
 ### References
 [機器學習 第5篇：knn迴歸 - iT人](https://iter01.com/549663.html) <br>
 [Python機器學習筆記(五)：使用Scikit-Learn進行K-Nearest演算法](https://yanwei-liu.medium.com/python機器學習筆記-五-使用scikit-learn進行k-nearest演算法-1191ea94ecaf) <br>
