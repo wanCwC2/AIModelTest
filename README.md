@@ -5,9 +5,9 @@
 Downing the *.csv, and put them in data folder.
 
 # KNN
-'numpy.mean': Must use 'np.array'. Cause 'array' not work to judge True or False. <br>
-I used two method: 'GridSearchCV' and 'numpy.mean' to find k. GridSearchCV was successful, but numpy.mean wasn't.
-Then, I though why not use 'knn.score' to find the best corret rate.
+`numpy.mean`: Must use `np.array`. Cause `array` not work to judge True or False. <br>
+I used two method: `GridSearchCV` and `numpy.mean` to find k. GridSearchCV was successful, but numpy.mean wasn't.
+Then, I though why not use `knn.score` to find the best corret rate.
 Ha! Finally, two method found the same k. <br>
 ### References
 [機器學習 第5篇：knn迴歸 - iT人](https://iter01.com/549663.html) <br>
