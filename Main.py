@@ -90,9 +90,13 @@ kng_test_score=kng.score(x_test_std,y_test.values)
 print('test data score:{:.2f}'.format(kng_test_score))
 
 # Decision model
-from sklearn.tree import DecisionTreeClassifier
-model = DecisionTreeClassifier()
-model.fit(x_train_std, y_train.values)
+from sklearn.tree import DecisionTreeRegressor
+model = DecisionTreeRegressor()
+for i in range (1,10):
+    model.fit(x_train_std, y_train.values)
+    model.predict(x_valid_std)
+    
+    
 print(model.score(x_test_std, y_test.values))
 
 # Random Forest
