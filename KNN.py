@@ -23,55 +23,51 @@ x_train_std = sc.transform(x_train)
 x_valid_std = sc.transform(x_valid)
 x_test_std = sc.transform(x_test)
 
-'''
+
 # 設定需要搜尋的K值，'n_neighbors'是sklearn中KNN的引數
-parameters={'n_neighbors':for i in range(1,10)}
-knn=KNeighborsClassifier()#注意：這裡不用指定引數
+parameters={'n_neighbors':[1,3,5,7,9,11,13]}
+knn=KNeighborsRegressor()#注意：這裡不用指定引數
 
 # 通過GridSearchCV來搜尋最好的K值。這個模組的內部其實就是對每一個K值進行評估
 clf=GridSearchCV(knn,parameters,cv=5)  #5折
 clf.fit(x_train,y_train)
 
 # 輸出最好的引數以及對應的準確率
-print("最終最佳準確率：%.2f"%clf.best_score_,"最終的最佳K值",clf.best_params_)
+print("最終最佳準確率：%.5f"%clf.best_score_,"最終的最佳K值",clf.best_params_)
 
 kng=KNeighborsRegressor(n_neighbors=1)
 
 kng.fit(x_train,y_train)
-prediction=knn.predict(x_test)
+prediction=kng.predict(x_test)
 
 kng_test_score=kng.score(x_test,y_test)
 
 print('test data score:{:.2f}'.format(kng_test_score))
-'''
 
-error_rate = []
+
+correctRate = []
 for i in range(1,60,2):
     
     knn = KNeighborsRegressor(n_neighbors=i)
     knn.fit(x_train_std, y_train.values)
-    pred_i = knn.predict(x_valid_std)
-    error_rate.append(np.mean(pred_i != y_valid.T.values))
-    """
-    prediction=knn.predict(x_test_std)
-    knn_test_score=knn.score(x_test_std, y_test.values)
-    print('test data score:{:.5f}'.format(knn_test_score))
-    """
+    correctRate.append(knn.score(x_valid_std, y_valid.values))
+#    pred_i = np.array(knn.predict(x_valid_std))
+#    pred_i = np.round(pred_i)
+#    correctRate.append(np.mean(pred_i == np.array(y_valid.T.values))) # !=: error rate ; ==: correct rate 
 
-#將k=1~60的錯誤率製圖畫出
 plt.figure(figsize=(10,6))
-plt.plot(range(1,60,2),error_rate,color='blue', linestyle='dashed', marker='o',
+plt.plot(range(1,60,2),correctRate,color='blue', linestyle='dashed', marker='o',
          markerfacecolor='red', markersize=10)
-plt.title('Error Rate vs. K Value')
+plt.title('Correct Rate vs. K Value')
 plt.xlabel('K')
-plt.ylabel('Error Rate')
+plt.ylabel('Correct Rate')
 
 prediction=knn.predict(x_test_std)
 knn_test_score=knn.score(x_test_std, y_test.values)
 print('test data score:{:.5f}'.format(knn_test_score))
 
 
-kng=KNeighborsRegressor(n_neighbors=1)
+kng=KNeighborsRegressor(n_neighbors=7)
 
 kng.fit(x_train_std,y_train.values)
 prediction=kng.predict(x_valid_std)
