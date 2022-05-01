@@ -38,7 +38,7 @@ knn=KNeighborsRegressor() #注意：這裡不用指定引數
 clf=GridSearchCV(knn,parameters,cv=5) #5折
 clf.fit(x_train,y_train)
 # 輸出最好的引數以及對應的準確率
-print("The best rate is ：%.5f"%clf.best_score_,"The best value of k is",clf.best_params_)
+#print("The best rate is ：%.5f"%clf.best_score_,"The best value of k is",clf.best_params_)
 
 #Method 2: Use for loop and knn.score to find the best value of k
 correctRate = []
@@ -66,17 +66,28 @@ knn.draw()
 knn.predict(7)
 """
 
-# Decision model
+# Decision Tree
 from sklearn.tree import DecisionTreeRegressor
-model = DecisionTreeRegressor()
-for i in range (1,10):
-    model.fit(x_train_std, y_train.values)
-    model.predict(x_valid_std)  
-print(model.score(x_test_std, y_test.values))
+maxRate = 0
+indexRate = 0
+for i in range (1,30):
+    model = DecisionTreeRegressor(random_state = i)
+    model.fit(x_train, y_train)
+    if maxRate < model.score(x_valid, y_valid):
+        maxRate = model.score(x_valid, y_valid)
+        indexRate = i
+DecisionTreeRegressor(random_state = indexRate)
+print("Correct rate using Decision Tree: ", round(model.score(x_test, y_test),5))
 
 # Random Forest
 from sklearn.ensemble import RandomForestRegressor
-rfc = RandomForestRegressor(n_estimators=100,n_jobs = -1,random_state =50, min_samples_leaf = 10)
-rfc.fit(x_train_std, y_train.values)
-y_predict=rfc.predict(x_test)
-print(rfc.score(x_test_std, y_test.values))
+maxRate = 0
+indexRate = 0
+for i in range (1,10):
+    rfc = RandomForestRegressor(random_state = i)
+    rfc.fit(x_train, y_train.values.ravel())
+    if maxRate < rfc.score(x_valid, y_valid.values.ravel()):
+        maxRate = rfc.score(x_valid, y_valid.values.ravel())
+        indexRate = i
+RandomForestRegressor(random_state = indexRate)
+print("Correct rate using Random Forest: ", round(rfc.score(x_test, y_test.values.ravel()),5))

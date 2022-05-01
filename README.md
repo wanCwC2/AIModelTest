@@ -22,6 +22,6 @@ I found that the Method 1 only using train data, not using validation data. So, 
 ### References
 [資料視覺化之 Decision tree (決策樹)範例與 Machine Learning (機器學習) 概念簡單教學(入門)](https://tree.rocks/decision-tree-graphviz-contour-with-pandas-gen-train-test-dataset-for-beginner-9137b7c8416a) <br>
 
-# Random forest
+# Random Forest
 ### References
 [[Python實作] 隨機森林模型 Random Forest](https://pyecontech.com/2019/11/03/python_random_forest/) <br>
