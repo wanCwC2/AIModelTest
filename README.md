@@ -1,4 +1,5 @@
 可能會有中英交雜的情況，我覺得用英文打比較方便，但為了求快時就會用中文了。 <br>
+Main.py是訓練KNN, Decision Tree, Random Forest: Main2.py是訓練XGBoost, Random Forest, SVR <br>
 
 # Data source
 [Bike Sharing Demand - Kaggle](https://www.kaggle.com/competitions/bike-sharing-demand/overview) <br>
