@@ -30,3 +30,10 @@ I found that the Method 1 only using train data, not using validation data. So, 
 # Random Forest
 ### References
 [[Python實作] 隨機森林模型 Random Forest](https://pyecontech.com/2019/11/03/python_random_forest/) <br>
+
+# XGBoost
+### References
+[[Day 15] 機器學習常勝軍-XGBoost -iT人](https://ithelp.ithome.com.tw/articles/10273094) <br>
+[Using XGBoost with Scikit-learn -kaggle](https://www.kaggle.com/code/stuarthallows/using-xgboost-with-scikit-learn/notebook) <br>
+[Scikit-Learn API -XGBoost](https://xgboost.readthedocs.io/en/stable/python/python_api.html#module-xgboost.sklearn) <br>
+

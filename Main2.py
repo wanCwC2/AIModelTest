@@ -24,3 +24,14 @@ x_train_std = sc.transform(x_train)
 x_valid_std = sc.transform(x_valid)
 x_test_std = sc.transform(x_test)
 
+import xgboost as xgb
+from sklearn.model_selection import GridSearchCV
+n_estimators = [10,20,30,40,50,60,70,80,90,100]
+max_depth = [1,2,3,4,5,6]
+parameters_to_search = {'n_estimators': n_estimators, 
+              'max_depth': max_depth}
+xgbrModel=xgb.XGBRegressor(n_estimators = 100, max_depth = 6)
+gb_model_CV = GridSearchCV(xgbrModel, parameters_to_search, cv=5)
+gb_model_CV.fit(x_train, y_train)
+knn_test_score=gb_model_CV.score(x_test, y_test)
+print('Correct rate using XGBoost: {:.5f}'.format(knn_test_score))
