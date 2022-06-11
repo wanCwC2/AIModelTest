@@ -37,3 +37,7 @@ I found that the Method 1 only using train data, not using validation data. So, 
 [Using XGBoost with Scikit-learn -kaggle](https://www.kaggle.com/code/stuarthallows/using-xgboost-with-scikit-learn/notebook) <br>
 [Scikit-Learn API -XGBoost](https://xgboost.readthedocs.io/en/stable/python/python_api.html#module-xgboost.sklearn) <br>
 
+# SVR
+在調整SVR參數時，因為是搭配pipeline使用，沒辦法單獨寫 `SVR(調整參數)`，必須要再度使用pipeline且重新fit資料集。 <br>
+### References
+[SVR Scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html) <br>
