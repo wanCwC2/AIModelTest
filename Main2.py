@@ -37,7 +37,6 @@ gb_model_CV.fit(x_train, y_train)
 knn_test_score=gb_model_CV.score(x_test, y_test)
 print('Correct rate using XGBoost: {:.5f}'.format(knn_test_score))
 
-
 #SVR
 from sklearn.svm import SVR
 from sklearn.pipeline import make_pipeline
@@ -47,18 +46,18 @@ cRate = 2 #最適合用在此的SVR參數
 epsilonRate = 0.5 #最適合用在此的SVR參數
 rng = np.random.RandomState(0)
 regr = make_pipeline(StandardScaler(), SVR(C=cRate, epsilon=epsilonRate))
-regr.fit(x_train_std, y_train)
+regr.fit(x_train_std, y_train.values.ravel())
 for i in range(1, 5):
     for j in range(0, 5):
         regr = make_pipeline(StandardScaler(), SVR(C=i, epsilon = j/10))
-        regr.fit(x_train_std, y_train)
-        if maxRate < regr.score(x_valid_std, y_valid.values):
-            maxRate = regr.score(x_valid_std, y_valid.values)
+        regr.fit(x_train_std, y_train.values.ravel())
+        if maxRate < regr.score(x_valid_std, y_valid.values.ravel()):
+            maxRate = regr.score(x_valid_std, y_valid.values.ravel())
             indexRate = i
             epsilonRate = j/10
 regr = make_pipeline(StandardScaler(), SVR(C = cRate, epsilon = epsilonRate))
-regr.fit(x_train_std, y_train)
-svr_test_score = regr.score(x_test_std,y_test.values)
+regr.fit(x_train_std, y_train.values.ravel())
+svr_test_score = regr.score(x_test_std,y_test.values.ravel())
 print('Correct rate using SVR: {:.5f}'.format(svr_test_score))
 
 # Random Forest
