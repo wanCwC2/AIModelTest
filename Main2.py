@@ -60,3 +60,16 @@ regr = make_pipeline(StandardScaler(), SVR(C = cRate, epsilon = epsilonRate))
 regr.fit(x_train_std, y_train)
 svr_test_score = regr.score(x_test_std,y_test.values)
 print('Correct rate using SVR: {:.5f}'.format(svr_test_score))
+
+# Random Forest
+from sklearn.ensemble import RandomForestRegressor
+maxRate = 0
+indexRate = 0
+for i in range (1,10):
+    rfc = RandomForestRegressor(random_state = i)
+    rfc.fit(x_train, y_train.values.ravel())
+    if maxRate < rfc.score(x_valid, y_valid.values.ravel()):
+        maxRate = rfc.score(x_valid, y_valid.values.ravel())
+        indexRate = i
+RandomForestRegressor(random_state = indexRate)
+print("Correct rate using Random Forest: ", round(rfc.score(x_test, y_test.values.ravel()),5))
