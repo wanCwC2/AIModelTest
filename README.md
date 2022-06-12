@@ -1,5 +1,6 @@
 可能會有中英交雜的情況，我覺得用英文打比較方便，但為了求快時就會用中文了。 <br>
-Main.py是訓練KNN, Decision Tree, Random Forest: Main2.py是訓練XGBoost, Random Forest, SVR <br>
+`Main.py`是訓練KNN, Decision Tree, Random Forest: `Main2.py`是訓練XGBoost, Random Forest, SVR <br>
+`Stacking.py`是調整三個模型合併之後，要使用驗證集調整參數。因為如果執行程式確認是否有bug，要重新跑過前面三個模型速度太慢了，所以才挪出一些程式碼，方便寫用驗證集調整參數的程式。 <br>
 
 # Data source
 [Bike Sharing Demand - Kaggle](https://www.kaggle.com/competitions/bike-sharing-demand/overview) <br>
@@ -43,3 +44,9 @@ I found that the Method 1 only using train data, not using validation data. So, 
 在調整SVR參數時，因為是搭配pipeline使用，沒辦法單獨寫 `SVR(調整參數)`，必須要再度使用pipeline且重新fit資料集。 <br>
 ### References
 [SVR Scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html) <br>
+
+# Note
+## 2022-06-13
+為了測驗最好的stacking，所以跑了約十小時的程式。雖然過程中有覺得應該要放棄，因為設定的值差異不大，而且有些warning，但覺得都執行這麼久了，堅持下去直到結果⋯⋯於是在最關鍵的一刻，我後面要補上fit的程式，最關鍵的MSE沒測到。 <br>
+但有記錄到最好的max_iter為90，random_state為20。 <br>
+可是我突然想到，正確率沒問題啊！重點是在MSE的結果有顯示出overfitting，我應該要不斷驗證，找出沒有overfitting不大的參數才對。我到底等這麼久是為了什麼啊⋯⋯ <br>

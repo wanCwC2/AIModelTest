@@ -132,7 +132,7 @@ stackTestMse = metrics.mean_squared_error(y_test.values.ravel(), test_pred)
 print('test data MSE: ', stackTestMse)
 
 stackScore = stackModel.score(X_test_std, y_test.values.ravel())
-#print("Correct rate after Stacking: ", clf.score(X_test_std, y_test.values.ravel()))
+print("Correct rate after Stacking: ", stackScore)
 
 #Use dataframe output all result
 result = {
