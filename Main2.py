@@ -35,9 +35,10 @@ xgbModel = xgb.XGBRegressor(n_estimators = 100, max_depth = 6)
 xgbModel_cv = GridSearchCV(xgbModel, parameters_to_search, cv=5) #可以直接找出最佳的訓練值
 xgbModel_cv.fit(X_train, y_train)
 xgb_test_score = xgbModel_cv.score(X_test, y_test)
-print('Correct rate using XGBoost: {:.5f}'.format(xgb_test_score))
+#print('Correct rate using XGBoost: {:.5f}'.format(xgb_test_score))
 
 #Use MSE sure whether it has overfitting.
+print("XGBoost's MSE")
 from sklearn import metrics
 train_pred = xgbModel_cv.predict(X_train)
 mse = metrics.mean_squared_error(y_train, train_pred)
@@ -67,7 +68,7 @@ for i in range(1, 5):
 svrModel = make_pipeline(StandardScaler(), SVR(C = svr_c, epsilon = svr_epsilon))
 svrModel.fit(X_train_std, y_train.values.ravel())
 svr_test_score = svrModel.score(X_test_std,y_test.values.ravel())
-print('Correct rate using SVR: {:.5f}'.format(svr_test_score))
+#print('Correct rate using SVR: {:.5f}'.format(svr_test_score))
 
 # Random Forest
 from sklearn.ensemble import RandomForestRegressor
@@ -80,6 +81,34 @@ for i in range (1,10):
         rf_maxRate = rfModel.score(X_valid, y_valid.values.ravel())
         rf_state = i
 RandomForestRegressor(random_state = rf_state)
-print("Correct rate using Random Forest: ", round(rfModel.score(X_test, y_test.values.ravel()),5))
+#print("Correct rate using Random Forest: ", round(rfModel.score(X_test, y_test.values.ravel()),5))
+
 
 #Stacking
+from sklearn.ensemble import StackingRegressor
+from sklearn.neural_network import MLPRegressor
+#弱學習器
+estimators = [
+    ('xgb', GridSearchCV(xgbModel, parameters_to_search, cv=5)),
+    ('svr', make_pipeline(StandardScaler(), SVR(C = svr_c, epsilon = svr_epsilon))),
+    ('rf', RandomForestRegressor(random_state = rf_state))
+]
+#Stacking將不同模型優缺點進行加權，讓模型更好。
+#final_estimator：集合所有弱學習器訓練出最終預測模型。預設為LogisticRegression。
+clf = StackingRegressor(
+    estimators=estimators, final_estimator= MLPRegressor(activation = "relu", alpha = 0.1, hidden_layer_sizes = (8,8),
+                            learning_rate = "constant", max_iter = 2000, random_state = 1000)
+)
+clf.fit(X_train_std, y_train.values.ravel())
+
+#Use MSE sure whether it has overfitting.
+print("After Stacking, it's MSE")
+from sklearn import metrics
+train_pred = clf.predict(X_train_std)
+mse = metrics.mean_squared_error(y_train.values.ravel(), train_pred)
+print('train data MSE: ', mse)
+valid_pred = clf.predict(X_valid_std)
+mse = metrics.mean_squared_error(y_valid.values.ravel(), valid_pred)
+print('valid data MSE: ', mse)
+
+print("Correct rate after Stacking: ", clf.score(X_test_std, y_test.values.ravel()))
