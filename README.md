@@ -32,10 +32,12 @@ I found that the Method 1 only using train data, not using validation data. So, 
 [[Python實作] 隨機森林模型 Random Forest](https://pyecontech.com/2019/11/03/python_random_forest/) <br>
 
 # XGBoost
+雖然這訓練出來的結果高達99%的正確率，但從訓練集和驗證集的MSE分別是3,15，看出有明顯overfitting的狀況。因此需要透過一些方式將弱訓練器集合成一個，可以讓訓練結果更為準確。這裡會使用Stacking。 <br>
 ### References
 [[Day 15] 機器學習常勝軍-XGBoost -iT人](https://ithelp.ithome.com.tw/articles/10273094) <br>
 [Using XGBoost with Scikit-learn -kaggle](https://www.kaggle.com/code/stuarthallows/using-xgboost-with-scikit-learn/notebook) <br>
 [Scikit-Learn API -XGBoost](https://xgboost.readthedocs.io/en/stable/python/python_api.html#module-xgboost.sklearn) <br>
+[[Day 16] 每個模型我全都要 - 堆疊法 (Stacking) -iT人](https://ithelp.ithome.com.tw/m/articles/10274009) <br>
 
 # SVR
 在調整SVR參數時，因為是搭配pipeline使用，沒辦法單獨寫 `SVR(調整參數)`，必須要再度使用pipeline且重新fit資料集。 <br>

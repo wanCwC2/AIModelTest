@@ -37,6 +37,16 @@ gb_model_CV.fit(x_train, y_train)
 knn_test_score=gb_model_CV.score(x_test, y_test)
 print('Correct rate using XGBoost: {:.5f}'.format(knn_test_score))
 
+#Use MSE sure whether it has overfitting.
+from sklearn import metrics
+train_pred = gb_model_CV.predict(x_train)
+mse = metrics.mean_squared_error(y_train, train_pred)
+print('train data MSE: ', mse)
+valid_pred = gb_model_CV.predict(x_valid)
+mse = metrics.mean_squared_error(y_valid, valid_pred)
+print('valid data MSE: ', mse)
+
+'''
 #SVR
 from sklearn.svm import SVR
 from sklearn.pipeline import make_pipeline
@@ -72,3 +82,4 @@ for i in range (1,10):
         indexRate = i
 RandomForestRegressor(random_state = indexRate)
 print("Correct rate using Random Forest: ", round(rfc.score(x_test, y_test.values.ravel()),5))
+'''
