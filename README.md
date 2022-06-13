@@ -1,6 +1,9 @@
 可能會有中英交雜的情況，我覺得用英文打比較方便，但為了求快時就會用中文了。 <br>
 `Main.py`是訓練KNN, Decision Tree, Random Forest: `Main2.py`是訓練XGBoost, Random Forest, SVR <br>
 `Stacking.py`是調整三個模型合併之後，要使用驗證集調整參數。因為如果執行程式確認是否有bug，要重新跑過前面三個模型速度太慢了，所以才挪出一些程式碼，方便寫用驗證集調整參數的程式。 <br>
+`Main2.py` 輸出結果：（因為這要跑一段時間，所以放上2022-06-13最後一次執行的狀況）
+<img src="./image/main2Output.png" style="zoom:70%" />
+<br>
 
 # Data source
 [Bike Sharing Demand - Kaggle](https://www.kaggle.com/competitions/bike-sharing-demand/overview) <br>
