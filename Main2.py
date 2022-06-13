@@ -120,6 +120,8 @@ stackModel = StackingRegressor(
                             learning_rate = "constant", max_iter = 200, random_state = 100)
 )
 stackModel.fit(X_train_std, y_train.values.ravel())
+stackScore = stackModel.score(X_test_std, y_test.values.ravel())
+print("Correct rate after Stacking: ", stackScore)
 
 #Use MSE sure whether it has overfitting.
 print("After stacking, it's MSE")
@@ -130,9 +132,6 @@ print('train data MSE: ', stackTrainMse)
 test_pred = stackModel.predict(X_test_std)
 stackTestMse = metrics.mean_squared_error(y_test.values.ravel(), test_pred)
 print('test data MSE: ', stackTestMse)
-
-stackScore = stackModel.score(X_test_std, y_test.values.ravel())
-print("Correct rate after Stacking: ", stackScore)
 
 #Use dataframe output all result
 result = {

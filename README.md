@@ -47,6 +47,11 @@ I found that the Method 1 only using train data, not using validation data. So, 
 
 # Note
 ## 2022-06-13
-為了測驗最好的stacking，所以跑了約十小時的程式。雖然過程中有覺得應該要放棄，因為設定的值差異不大，而且有些warning，但覺得都執行這麼久了，堅持下去直到結果⋯⋯於是在最關鍵的一刻，我後面要補上fit的程式，最關鍵的MSE沒測到。 <br>
-但有記錄到最好的max_iter為90，random_state為20。 <br>
-可是我突然想到，正確率沒問題啊！重點是在MSE的結果有顯示出overfitting，我應該要不斷驗證，找出沒有overfitting不大的參數才對。我到底等這麼久是為了什麼啊⋯⋯ <br>
+為了測驗最好的stacking，所以跑了約十小時的程式。雖然過程中有覺得應該要放棄，因為設定的值差異不大，而且有些warning，
+但覺得都執行這麼久了，堅持下去直到結果⋯⋯於是在最關鍵的一刻，我後面要補上fit的程式，最關鍵的MSE沒測到。
+但有記錄到最好的max_iter為90，random_state為20。(可是這不是重點啊！！！)
+但我突然想到，正確率沒問題啊！重點是在MSE的結果有顯示出overfitting，我應該要不斷驗證，找出沒有overfitting不大的參數才對。我到底等這麼久是為了什麼啊⋯⋯ <br>
+順便提一下，max_iter不能低於200，會有warning。 <br>
+接著我重新驗證最佳參數，透過MSE來調整，看到結果後腦袋閃過目前最熱門的句子⋯⋯I'm try. I'm try. qwq <br>
+<img src="./image/findStackParameter.png" style="zoom:70%" />
+<br>
